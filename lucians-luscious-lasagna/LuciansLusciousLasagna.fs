@@ -1,9 +1,10 @@
 module LuciansLusciousLasagna
 
-// TODO: define the 'expectedMinutesInOven' binding
+let expectedMinutesInOven = 40
+let layerPreparationTime = 2
 
-// TODO: define the 'remainingMinutesInOven' function
+let remainingMinutesInOven elapsedTime = expectedMinutesInOven - elapsedTime
 
-// TODO: define the 'preparationTimeInMinutes' function
+let preparationTimeInMinutes layerNum = layerPreparationTime * layerNum
 
-// TODO: define the 'elapsedTimeInMinutes' function
+let elapsedTimeInMinutes layerNum elapsedTime = preparationTimeInMinutes layerNum + elapsedTime
