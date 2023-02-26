@@ -19,9 +19,9 @@ let incrementTodaysCount(counts: int[]): int[] =
   counts|> Array.updateAt index  last
 
 let oddWeek(counts: int[]): bool =
-  let odd = counts |> Array.filter (fun elm  -> elm % 2 = 0)
-  let even = counts |> Array.filter (fun elm -> elm % 2 <> 0)
-  let evenAllZero = even |> Array.forall (fun elm -> elm = 0)
-  let evenAllTen = even |> Array.forall (fun elm -> elm = 10)
-  let oddAllFive = odd |> Array.forall (fun elm -> elm = 5)
-  evenAllTen || evenAllZero || oddAllFive
+  match counts with
+  | [| |] -> false
+  | [|_;0;_;0;_;0;_|] -> true
+  | [|_;10;_;10;_;10;_|] -> true
+  | [|5;_;5;_;5;_;5|] -> true
+  | _ -> false
