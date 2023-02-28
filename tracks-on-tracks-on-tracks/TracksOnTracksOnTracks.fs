@@ -1,14 +1,19 @@
 module TracksOnTracksOnTracks
 
-let newList: string list = failwith "Please implement the 'newList' value"
+let newList: string list = []
 
-let existingList: string list = failwith "Please implement the 'existingList' value"
+let existingList: string list = ["F#"; "Clojure"; "Haskell"]
 
 let addLanguage (language: string) (languages: string list): string list =
-    failwith "Please implement the 'addLanguage' function"
+    language :: languages
 
-let countLanguages (languages: string list): int = failwith "Please implement the 'countLanguages' function"
+let countLanguages (languages: string list): int = languages |> List.length
 
-let reverseList(languages: string list): string list = failwith "Please implement the 'reverseList' function"
+let reverseList(languages: string list): string list = languages |> List.rev
 
-let excitingList (languages: string list): bool = failwith "Please implement the 'excitingList' function"
+let excitingList (languages: string list): bool = 
+    match languages with
+    | head:: tail when head.Equals("F#") -> true
+    | [_;"F#"] -> true
+    | [_;"F#";_] -> true
+    | _ -> false
