@@ -2,29 +2,15 @@ module ProteinTranslation
 
 let codons (nucleotide:string) = 
     match nucleotide with 
-    | "" -> ""
     | "AUG" -> "Methionine"
-    | "UUU" -> "Phenylalanine"
-    | "UUC" -> "Phenylalanine"
-    | "UUA" -> "Leucine"
-    | "UUG" -> "Leucine"
-    | "UCU" -> "Serine"
-    | "UCC" -> "Serine"
-    | "UCA" -> "Serine" 
-    | "UCG" -> "Serine" 
-    | "UAU" -> "Tyrosine"
-    | "UAC" -> "Tyrosine"
-    | "UGU" -> "Cysteine"
-    | "UGC" -> "Cysteine"
+    | "UUU" | "UUC" -> "Phenylalanine"
+    | "UUA" | "UUG" -> "Leucine"
+    | "UCU" | "UCC" | "UCA" | "UCG" -> "Serine"
+    | "UAU" | "UAC" -> "Tyrosine"
+    | "UGU" | "UGC" -> "Cysteine"
     | "UGG" -> "Tryptophan"
-    | "UAA" -> "Stop"
-    | "UAG" -> "Stop"
-    | "UGA" -> "Stop"
-    | _ -> ""
-
-
-
-
+    | "UAA" | "UAG" | "UGA" -> "Stop"
+    | _ -> failwith "Invalid codon"
 
 let proteins( rna:string) = 
     let rec next (remianRna : string) (result: string list)=
