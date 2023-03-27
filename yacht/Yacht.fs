@@ -35,16 +35,13 @@ let dieValue die  =
 
 let scoreByCount (dice :Die list) (dieNumber : Die)= 
     let count = dice |> Seq.filter(fun elem->elem = dieNumber )  |> Seq.length
-    match dieNumber with
-    | One -> count
-    | Two -> 2 * count
-    | Three -> 3 * count
-    | Four -> 4 * count
-    | Five -> 5 * count
-    | Six -> 6 * count
+    (dieValue dieNumber) * count
+    
+let diceGroup  (dice : Die list) = 
+    dice |> Seq.countBy(id)
 
 let fullHouseScore (dice : Die list)=
-    let groups = dice |> Seq.countBy(fun x->x)
+    let groups = diceGroup dice
     
     if (groups |> Seq.length <> 2) then 0
     else
@@ -54,16 +51,16 @@ let fullHouseScore (dice : Die list)=
         else 0
 
 let choiceScore (dice : Die list) =
-    dice |> Seq.sumBy(fun elem -> dieValue elem)
+    dice |> Seq.sumBy(dieValue)
 
 let yachtScore (dice : Die list) =
-    let groups = dice |> Seq.countBy(fun x->x)
+    let groups = diceGroup dice
 
     if groups |> Seq.length <> 1 then 0
     else 50
 
 let fourOfKindScore (dice : Die list) = 
-    let groups = dice |> Seq.countBy(fun x->x)
+    let groups = diceGroup dice
 
     if groups |> Seq.length = 1 then 
         let (a,countA) = groups |> Seq.head
@@ -78,24 +75,24 @@ let fourOfKindScore (dice : Die list) =
         else 0
 
 let littleStraightScore (dice : Die list) =
-    let groups = dice |> Seq.countBy(fun x->x)
+    let groups = diceGroup dice
 
     if  groups |> Seq.length <> 5 then 0
     else
-        let min = dice |> Seq.minBy(fun elem -> dieValue elem)
-        let max = dice |> Seq.maxBy(fun elem -> dieValue elem)
+        let min = dice |> Seq.minBy(dieValue)
+        let max = dice |> Seq.maxBy(dieValue)
 
         if min = Die.One && max = Die.Five then 30
         else 0
 
 
 let bigStraightScore (dice : Die list) =
-    let groups = dice |> Seq.countBy(fun x->x)
+    let groups = diceGroup dice
 
     if  groups |> Seq.length <> 5 then 0
     else
-        let min = dice |> Seq.minBy(fun elem -> dieValue elem)
-        let max = dice |> Seq.maxBy(fun elem -> dieValue elem)
+        let min = dice |> Seq.minBy(dieValue)
+        let max = dice |> Seq.maxBy(dieValue)
 
         if min = Die.Two && max = Die.Six then 30
         else 0
